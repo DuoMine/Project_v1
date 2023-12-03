@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:id="@+id/todoInner"
+    android:background="@drawable/plus_btn_2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/todoboxLinearLayout"
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/todoCheckbox"
+            android:layout_marginStart="20dp"
+            android:visibility="gone"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/todoInnerTextView"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_margin="20dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>
