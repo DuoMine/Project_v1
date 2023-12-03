@@ -8,11 +8,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_margin="10dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,21 +27,21 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/userTitleText"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:text="(칭호)"/>
+                    android:textSize="20sp"
+                    android:text="헬스장 상주러 "/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/userText"
                     android:textColor="@color/black"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
                     android:text="OOO" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="25dp"
-                    android:text="님"/>
+                    android:textSize="25sp"
+                    android:text="님!"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,18 +51,54 @@
                 android:layout_marginHorizontal="10dp">
                 <ImageButton
                     android:layout_width="130dp"
-                    android:layout_height="150dp"
+                    android:layout_height="130dp"
                     android:layout_margin="20dp"
                     android:id="@+id/myPageBtn"
                     android:src="@drawable/ic_launcher_foreground"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp">
-                    <TextView
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/tanghuru_image3"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="자는게 아니라 생각중인 거야"/>
+
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="gold"/>
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/star"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Star"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/coin"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gold"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

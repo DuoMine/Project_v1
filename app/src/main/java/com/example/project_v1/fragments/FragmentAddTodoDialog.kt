@@ -26,13 +26,13 @@ class FragmentAddTodoDialog : DialogFragment(), View.OnClickListener, DatePicker
     ): View? {
         binding = FragmentAddTodoDialogBinding.inflate(inflater,container,false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        var now:Long = System.currentTimeMillis()
+        val now:Long = System.currentTimeMillis()
         Log.d("FragmentAddTodoDialog",now.toString())
-        var date: Date = Date(now)
-        var dateFormat : SimpleDateFormat = SimpleDateFormat("yyyy년MM월dd일 HH시mm분")
-        var getDate : String = dateFormat.format(date).substring(0 until 11)
-        var getHour : String = dateFormat.format(date).substring(12 until 14)
-        var getMinute : String = dateFormat.format(date).substring(14)
+        val date: Date = Date(now)
+        val dateFormat : SimpleDateFormat = SimpleDateFormat("yyyy년MM월dd일 HH시mm분")
+        val getDate : String = dateFormat.format(date).substring(0 until 11)
+        val getHour : String = dateFormat.format(date).substring(12 until 14)
+        val getMinute : String = dateFormat.format(date).substring(14)
 
         if(dateFormat.format(date).substring(12 until 14).toInt() < 12){
             AM_PM = "AM"
@@ -99,21 +99,21 @@ class FragmentAddTodoDialog : DialogFragment(), View.OnClickListener, DatePicker
             R.id.addTodoAlarmToggleBtn -> {
 
                 if(binding.addTodoAlarmToggleBtn.isChecked == true){
-                    binding.addTodoAlarmToggleBtn.setBackgroundDrawable(resources.getDrawable(R.drawable.alarmon))
+                    binding.addTodoAlarmToggleBtn.setBackgroundResource(R.drawable.alarmon)
                 }else{
-                    binding.addTodoAlarmToggleBtn.setBackgroundDrawable(resources.getDrawable(R.drawable.alarmoff))
+                    binding.addTodoAlarmToggleBtn.setBackgroundResource(R.drawable.alarmoff)
                 }
             }
             R.id.createNewTodoBtn -> {
-                var tag = System.currentTimeMillis().toInt()
-                var todoInnerBox = TodoInnerBox(
+                val tag = System.currentTimeMillis().toInt()
+                val todoInnerBox = TodoInnerBox(
                     binding.titleEditText.text.toString(),
                     binding.addDatePicker.year,
                     binding.addDatePicker.month,
                     binding.addDatePicker.dayOfMonth,
                     binding.addTimePicker.hour,
                     binding.addTimePicker.minute,
-                    AM_PM, tag)
+                    AM_PM, tag, "false")
                 (activity as MainActivity).addTodoBox(todoInnerBox)
                 dismiss()
             }

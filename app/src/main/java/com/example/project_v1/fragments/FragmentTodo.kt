@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.example.project_v1.activity.MainActivity
 import com.example.project_v1.R
@@ -39,6 +38,7 @@ class FragmentTodo : Fragment(), View.OnClickListener, View.OnLongClickListener{
             R.id.removeTodoBtn -> { //리스트에서 todo를 제거함
                 (activity as MainActivity).removeTodoBox()
                 binding.removeTodoBtn.isVisible = false
+                binding.addTodoBtn.isVisible = true
             }
         }
     }

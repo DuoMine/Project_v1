@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.TableLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
@@ -28,9 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewPager:ViewPager2
     private lateinit var tabLayout:TabLayout
-    lateinit var db: FirebaseDatabase
+    private lateinit var db: FirebaseDatabase
     var userData: UserData = UserData()
-    val uid = FirebaseAuth.getInstance().currentUser?.uid
+    val uid = FirebaseAuth.getInstance().currentUser?.uid //현재 사용자의 uid로 db에서 검색
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         db = FirebaseDatabase.getInstance() //파이어베이스 데이터베이스
 
-        val userReference = db.reference.child("Users").child(uid!!) //현재 사용자의 uid로 db에서 검색
+        val userReference = db.reference.child("Users").child(uid!!)
         userReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val data = dataSnapshot.getValue(UserData::class.java)
@@ -69,6 +68,13 @@ class MainActivity : AppCompatActivity() {
             val inflatedLayout = layoutInflater.inflate(R.layout.todo_inner, linearLayout, false)
             inflatedLayout.id = item.tag
             linearLayout.addView(inflatedLayout, 0)
+
+            linearLayout.findViewById<CheckBox>(R.id.todoCompleteCheckBox).isChecked = item.isCompleted.toBoolean()
+            if(item.isCompleted.toBoolean()){
+                inflatedLayout.setBackgroundResource(R.drawable.plus_btn_2_checked)
+            }else{
+                inflatedLayout.setBackgroundResource(R.drawable.plus_btn_2)
+            }
             inflatedLayout.findViewById<TextView>(R.id.todoInnerTextView).text = item.title
             inflatedLayout.findViewById<LinearLayout>(R.id.todoboxLinearLayout).setOnClickListener {
                 onClick(it, item)
@@ -79,27 +85,34 @@ class MainActivity : AppCompatActivity() {
             inflatedLayout.findViewById<CheckBox>(R.id.todoCheckbox).setOnClickListener {
                 onClick(it, item)
             }
+            inflatedLayout.findViewById<CheckBox>(R.id.todoCompleteCheckBox).setOnClickListener {
+                onClick(it, item)
+            }
+
         } //유저 데이터의 todo리스트에 있는 모든 todoInnerBox를 가져와서 리니어레이아웃 안에 등록
     }
 
     fun addTodoBox(todoInnerBox: TodoInnerBox){ //TodoInnerBox를 리스트에 추가하고 리로드
         userData.addTodoInnerBox(todoInnerBox)
-        db.reference.child("Users").child(uid!!).child("todoList").setValue(userData.todoList)//db의 Users/유저uid 아래에 userData데이터클래스를 업데이트함
+        val userReference = db.reference.child("Users").child(uid!!)
+        userReference.child("todoList").setValue(userData.todoList)//db의 Users/유저uid 아래에 userData데이터클래스를 업데이트함
         reloadTodo(findViewById(R.id.todoInnerLinearLayout))
     }
     fun removeTodoBox(){ //TodoInnerBox를 리스트에서 제거하고 리로드
+        val userReference = db.reference.child("Users").child(uid!!)
         for(i in userData.todoList.reversed()){
-            var todoBox = findViewById<LinearLayout>(i.tag)
-            var checkBox = todoBox.findViewById<CheckBox>(R.id.todoCheckbox)
+            val todoBox = findViewById<LinearLayout>(i.tag)
+            val checkBox = todoBox.findViewById<CheckBox>(R.id.todoCheckbox)
             if(checkBox.isChecked){
                 findViewById<LinearLayout>(R.id.todoboxLinearLayout).removeView(findViewById(i.tag))
                 userData.removeTodoInnerBox(i)
 
             }
         }
-        db.reference.child("Users").child(uid!!).child("todoList").setValue(userData.todoList) //db의 Users/유저uid 아래에 userData데이터클래스를 업데이트함
+        userReference.child("todoList").setValue(userData.todoList) //db의 Users/유저uid 아래에 userData데이터클래스를 업데이트함
         reloadTodo(findViewById(R.id.todoInnerLinearLayout))
     }
+
     private fun onLongClick(v: View, todoInnerBox: TodoInnerBox): Boolean {
         when(v.id){
             R.id.todoboxLinearLayout -> {//박스를 길게 누르면 체크박스를 띄움.
@@ -114,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
     private fun onClick(v: View, todoInnerBox: TodoInnerBox) {
+        val userReference = db.reference.child("Users").child(uid!!)
         when(v.id){
             R.id.todoboxLinearLayout -> { //박스를 터치 시 todoInnerBox 수정 창을 띄움
                 val mfragment = FragmentModifyTodoDialog()
@@ -122,11 +136,14 @@ class MainActivity : AppCompatActivity() {
                 mfragment.arguments = bundle
                 mfragment.show(supportFragmentManager,"keymodifytododialog")
             }
+            /*R.id.todoInnerMenuBtn -> {
+
+            }*/
             R.id.todoCheckbox -> { //체크박스를 체크 시 수정 버튼이 나타남.
                 var checked = false
                 for(i in userData.todoList){
-                    var linearLayout = findViewById<LinearLayout>(i.tag)
-                    var checkBox = linearLayout.findViewById<CheckBox>(R.id.todoCheckbox)
+                    val linearLayout = findViewById<LinearLayout>(i.tag)
+                    val checkBox = linearLayout.findViewById<CheckBox>(R.id.todoCheckbox)
                     if(checkBox!=null&&checkBox.isChecked){
                         checked = true
                     }
@@ -136,6 +153,18 @@ class MainActivity : AppCompatActivity() {
                 }
                 findViewById<Button>(R.id.removeTodoBtn).isVisible = checked // 체크가 하나라도 되어있으면 추가 버튼이 삭제 버튼으로 바뀜
                 findViewById<Button>(R.id.addTodoBtn).isVisible = !checked
+            }
+            R.id.todoCompleteCheckBox -> { //체크박스를 체크 시 완료
+                val linearLayout = findViewById<LinearLayout>(todoInnerBox.tag)
+                if(linearLayout.findViewById<CheckBox>(R.id.todoCompleteCheckBox).isChecked){
+                    todoInnerBox.isCompleted = "true"
+                    userReference.child("todoList").child(userData.todoList.indexOf(todoInnerBox).toString()).child("completed").setValue("true")
+                    linearLayout.setBackgroundResource(R.drawable.plus_btn_2_checked)
+                }else{
+                    todoInnerBox.isCompleted = "false"
+                    userReference.child("todoList").child(userData.todoList.indexOf(todoInnerBox).toString()).child("completed").setValue("false")
+                    linearLayout.setBackgroundResource(R.drawable.plus_btn_2)
+                }
             }
         }
     }
