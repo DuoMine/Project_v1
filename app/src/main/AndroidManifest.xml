@@ -24,10 +24,12 @@
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.BadgeActivity"/>
+        <activity android:name=".activity.OptionActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"
         android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true"
-        tools:targetApi="tiramisu" />
+        tools:targetApi="tiramisu"
+        tools:ignore="ManifestOrder" />
 </manifest>

@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
+import com.example.project_v1.BadgeInnerBox
 import com.example.project_v1.fragments.FragmentModifyTodoDialog
 import com.example.project_v1.R
 import com.example.project_v1.TodoInnerBox
@@ -97,6 +98,8 @@ class MainActivity : AppCompatActivity() {
         val userReference = db.reference.child("Users").child(uid!!)
         userReference.child("todoList").setValue(userData.todoList)//db의 Users/유저uid 아래에 userData데이터클래스를 업데이트함
         reloadTodo(findViewById(R.id.todoInnerLinearLayout))
+        userData.addBadge(BadgeInnerBox("New","천리 길도 한걸음부터",R.drawable.tanghuru_image))
+        userReference.child("badgeList").setValue(userData.badgeList)
     }
     fun removeTodoBox(){ //TodoInnerBox를 리스트에서 제거하고 리로드
         val userReference = db.reference.child("Users").child(uid!!)
@@ -136,9 +139,6 @@ class MainActivity : AppCompatActivity() {
                 mfragment.arguments = bundle
                 mfragment.show(supportFragmentManager,"keymodifytododialog")
             }
-            /*R.id.todoInnerMenuBtn -> {
-
-            }*/
             R.id.todoCheckbox -> { //체크박스를 체크 시 수정 버튼이 나타남.
                 var checked = false
                 for(i in userData.todoList){

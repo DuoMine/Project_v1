@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.project_v1.R
 import com.example.project_v1.activity.BadgeActivity
 import com.example.project_v1.activity.MainActivity
+import com.example.project_v1.activity.OptionActivity
 import com.example.project_v1.databinding.FragmentUserDialogBinding
 
 class FragmentUserDialog : DialogFragment(), View.OnClickListener { //유저 관리 창
@@ -35,15 +36,19 @@ class FragmentUserDialog : DialogFragment(), View.OnClickListener { //유저 관
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.gotoBadgeBtn -> { //뱃지 관리 창으로 이동
-                var intent = Intent(requireContext(),BadgeActivity::class.java)
+                val intent = Intent(requireContext(),BadgeActivity::class.java)
                 intent.putExtra("userData",(activity as MainActivity).userData)
                 startActivity(intent)
+                this.dismiss()
             }
             R.id.gotoDexBtn -> {
                 /*명시적 인텐트 열기*/
             }
             R.id.gotoSettingBtn -> {
-                /*명시적 인텐트 열기*/
+                val intent = Intent(requireContext(),OptionActivity::class.java)
+                intent.putExtra("userData",(activity as MainActivity).userData)
+                startActivity(intent)
+                this.dismiss()
             }
         }
     }
