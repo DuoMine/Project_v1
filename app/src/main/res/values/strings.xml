@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Project_v1</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="badgeSpinner_Array">
+        <item>최신순</item>
+        <item>이름순</item>
+    </string-array>
+</resources>

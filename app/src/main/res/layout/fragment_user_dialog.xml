@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.FragmentUserDialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/userpopup_bg"
+    android:layout_marginTop="140dp">
+    <TextView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="마이페이지 "
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gotoBadgeBtn"
+        android:text="활동 뱃지"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/plus_btn"
+        android:layout_margin="10dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gotoDexBtn"
+        android:text="탕후루 도감"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/plus_btn"
+        android:layout_margin="10dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gotoSettingBtn"
+        android:text="개인 설정"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/plus_btn"
+        android:layout_margin="10dp"/>
+</LinearLayout>
