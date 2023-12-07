@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.cookandroid.testproject.Dialog.BackgroundDialog
+import com.cookandroid.testproject.Dialog.ResourceCheckDialog
 import com.cookandroid.testproject.Model.BackgroundModel
 import com.example.project_v1.R
 
@@ -65,7 +65,7 @@ class FragmentStoreBackground: Fragment(), OnClickListener { // 배경 구매 �
         args.putString("content", content)
         args.putString("coin", coin)
 
-        val dialog = BackgroundDialog()
+        val dialog = ResourceCheckDialog()
         dialog.arguments = args
         dialog.show(parentFragmentManager,"BackgroundDialog")
     }

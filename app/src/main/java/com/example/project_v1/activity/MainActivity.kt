@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e("MainActivity", "Error loading user data: ${databaseError.message}")
             }
         })
+
     }
 
     private fun setupUI() {

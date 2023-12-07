@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import com.cookandroid.testproject.Dialog.BackgroundDialog
+import com.cookandroid.testproject.Dialog.ResourceCheckDialog
 import com.cookandroid.testproject.Model.DecoModel
 import com.example.project_v1.R
 
@@ -18,6 +18,7 @@ class FragmentStoreDeco: Fragment(), OnClickListener { // 장식 구매 클래�
     private var imageView = arrayOfNulls<ImageView>(10)
     private var coin = arrayOfNulls<TextView>(10)
     private var decoModel = DecoModel()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +66,7 @@ class FragmentStoreDeco: Fragment(), OnClickListener { // 장식 구매 클래�
         args.putString("content", content)
         args.putString("coin", coin)
 
-        val dialog = BackgroundDialog()
+        val dialog = ResourceCheckDialog()
         dialog.arguments = args
         dialog.show(parentFragmentManager,"BackgroundDialog")
     }
