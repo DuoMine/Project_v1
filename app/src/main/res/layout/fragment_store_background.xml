@@ -232,7 +232,7 @@
                                 android:id="@+id/backgroundImg5"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/resize_background" />
+                                android:src="@drawable/bgimg5" />
 
                             <TextView
                                 android:id="@+id/backgroundCoin5"

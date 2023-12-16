@@ -24,6 +24,7 @@
         <activity android:name=".activity.RegisterActivity"/>
         <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.BadgeActivity"/>
+        <activity android:name=".activity.DexActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"

@@ -65,6 +65,7 @@ class FragmentStoreDeco: Fragment(), OnClickListener { // 장식 구매 클래�
         args.putString("name", name)
         args.putString("content", content)
         args.putString("coin", coin)
+        args.putString("type", "deco")
 
         val dialog = ResourceCheckDialog()
         dialog.arguments = args

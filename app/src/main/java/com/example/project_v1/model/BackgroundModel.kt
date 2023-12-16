@@ -13,8 +13,8 @@ class BackgroundModel {
         R.id.backgroundImg4, R.id.backgroundImg5, R.id.backgroundImg6, R.id.backgroundImg7,
         R.id.backgroundImg8, R.id.backgroundImg9, R.id.backgroundImg10)
 
-    val nameID = arrayOf("초원", "사탕마을", "석양", "중세시대", "5", "6", "7", "8", "9", "10")
-    val contentID = arrayOf("평화로운 분위기를 가져다준다", "달콤한 향기를 풍긴다", "웅장한 분위기를 가져다준다", "중세시대 분위기를 가져다준다", "-----------",
+    val nameID = arrayOf("초원", "사탕마을", "석양", "중세시대", "야경", "6", "7", "8", "9", "10")
+    val contentID = arrayOf("평화로운 분위기를 가져다준다", "달콤한 향기를 풍긴다", "웅장한 분위기를 가져다준다", "중세시대 분위기를 가져다준다", "고요한 분위기를 가져다준다",
         "-----------", "-----------", "-----------", "-----------", "-----------")
 
     val coinID = arrayOf(

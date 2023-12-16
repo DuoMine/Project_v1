@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.project_v1.R
 import com.example.project_v1.activity.BadgeActivity
+import com.example.project_v1.activity.DexActivity
 import com.example.project_v1.activity.MainActivity
 import com.example.project_v1.databinding.FragmentUserDialogBinding
 
@@ -40,7 +41,9 @@ class FragmentUserDialog : DialogFragment(), View.OnClickListener { //유저 관
                 startActivity(intent)
             }
             R.id.gotoDexBtn -> {
-                /*명시적 인텐트 열기*/
+                var intent = Intent(requireContext(), DexActivity::class.java)
+                startActivity(intent)
+                dialog?.dismiss()
             }
             R.id.gotoSettingBtn -> {
                 /*명시적 인텐트 열기*/

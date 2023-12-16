@@ -112,6 +112,7 @@ class ChoiceCheckDialog: DialogFragment(), View.OnClickListener {
         args.putInt("tanghulu", tanghulu)
         args.putString("name", name)
         args.putString("rank", rank)
+        args.putString("display", "tanghulu")
 
         //뽑힌 탕후루의 정보를 간략하게 표기할 Dialog 생성
         val dialog = ResultDialog()

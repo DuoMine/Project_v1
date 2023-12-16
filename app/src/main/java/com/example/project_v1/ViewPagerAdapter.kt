@@ -21,5 +21,4 @@ class ViewPagerAdapter (activity: FragmentActivity) : FragmentStateAdapter(activ
             else -> throw IllegalArgumentException("Invalid position")
         }
     }
-
 }

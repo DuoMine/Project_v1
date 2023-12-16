@@ -23,6 +23,7 @@ class ResourceCheckDialog : DialogFragment(), OnClickListener { // 배경 구매
     private var content: String? = null
     private var coin: String? = null
     private var image: Int? = null
+    private var type: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +43,7 @@ class ResourceCheckDialog : DialogFragment(), OnClickListener { // 배경 구매
         name = mArgs?.getString("name")
         content = mArgs?.getString("content")
         coin = mArgs?.getString("coin")
+        type = mArgs?.getString("type")
 
         binding.resultImage.setImageResource(image!!)
         binding.resultName.text = name
@@ -72,11 +74,12 @@ class ResourceCheckDialog : DialogFragment(), OnClickListener { // 배경 구매
                 var args = Bundle()
                 args.putInt("background", image!!)
                 args.putString("name", name)
-                args.putString("display", "background")
+                args.putString("content", content)
+                args.putString("display", type)
 
                 val resultDialog = ResultDialog()
                 resultDialog.arguments = args
-                resultDialog.show(parentFragmentManager,"TanghuluDialog")
+                resultDialog.show(parentFragmentManager,"ResourceDialog")
 
                 dialog?.dismiss()
             }

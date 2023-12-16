@@ -11,9 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.project_v1.ItemDBHelper
 import com.example.project_v1.R
+import com.example.project_v1.activity.MainActivity
 import com.example.project_v1.databinding.FragmentResultDialogBinding
 import com.example.project_v1.innerfragments.ChoiceCheckDialog
 
@@ -21,12 +22,14 @@ import com.example.project_v1.innerfragments.ChoiceCheckDialog
 class ResultDialog : DialogFragment(), View.OnClickListener { // 탕후루 뽑기 확인 클래스
     private lateinit var binding: FragmentResultDialogBinding
     private var image: Int? = null
+    private lateinit var itemDB :ItemDBHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        itemDB = ItemDBHelper(requireContext())
         binding = FragmentResultDialogBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return binding.root
@@ -39,14 +42,18 @@ class ResultDialog : DialogFragment(), View.OnClickListener { // 탕후루 뽑�
         var mArgs : Bundle? = arguments
         var name: String? = null
         var rank: String? = null
+        var content: String? = null
 
         var display = mArgs?.getString("display")
-        if (display.equals("background")){
+        if (display.equals("background") || display.equals("deco")){
             image = mArgs?.getInt("background")
             name = mArgs?.getString("name")
-            binding.tanghuluResultRank.text = null
+            content = mArgs?.getString("content")
             binding.tanghuluResultRank.text = null
             binding.result.text = "구매 완료"
+
+            val id = (activity as MainActivity).userData.uid
+            itemDB.addItems(id, display!!, name!!, content!!, image!!) // 배경 및 장식 아이템 저장
         } else {
             image = mArgs?.getInt("tanghulu")
             name = mArgs?.getString("name")
@@ -60,7 +67,17 @@ class ResultDialog : DialogFragment(), View.OnClickListener { // 탕후루 뽑�
             } else{
                 binding.tanghuluResultRank.setTextColor(Color.MAGENTA)
             }
+
+            val id = (activity as MainActivity).userData.uid
+            if(itemDB.checkItems(id, name!!)){
+                binding.tanghuluResultRank.text = "보유중"
+                binding.tanghuluResultRank.setTextColor(Color.BLACK)
+            } else {
+                itemDB.addItems(id, display!!, name!!, "", image!!) // 탕후루 아이템 저장
+            }
         }
+        isCancelable = false
+
         binding.tanghuluResultImage.setImageResource(image!!)
         binding.tanghuluResultName.text = name
 
@@ -81,7 +98,6 @@ class ResultDialog : DialogFragment(), View.OnClickListener { // 탕후루 뽑�
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnPositive -> {
-                //데이터베이스와 연동해서 값을 저장해야 함
                 dialog?.dismiss()
             }
         }

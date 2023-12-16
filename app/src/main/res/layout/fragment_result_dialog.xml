@@ -24,10 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#ffaaaa"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
         <ImageView
             android:id="@+id/tanghuluResultImage"
             android:layout_width="match_parent"

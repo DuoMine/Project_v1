@@ -7,22 +7,27 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.cookandroid.testproject.Dialog.ResourceCheckDialog
 import com.cookandroid.testproject.Model.BackgroundModel
+import com.example.project_v1.ItemDBHelper
 import com.example.project_v1.R
+import com.example.project_v1.activity.MainActivity
 
 class FragmentStoreBackground: Fragment(), OnClickListener { // 배경 구매 클래스
     private var cardView = arrayOfNulls<CardView>(10)
     private var imageView = arrayOfNulls<ImageView>(10)
     private var coin = arrayOfNulls<TextView>(10)
     private var backgroundModel = BackgroundModel()
+    private lateinit var itemDB: ItemDBHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        itemDB = ItemDBHelper(requireContext())
         return inflater.inflate(R.layout.fragment_store_background, container, false)
     }
 
@@ -53,20 +58,26 @@ class FragmentStoreBackground: Fragment(), OnClickListener { // 배경 구매 �
     }
 
     private fun setDialog(index: Int){ // 배경 정보를 Bundle() 객체를 사용하여 DialogFragment에 값을 전달
-        var args = Bundle()
-        var str: String = "@drawable/bgimg" + (index + 1).toString()
-        var resId = resources.getIdentifier(str, "drawable", activity?.packageName)
-        var coin = coin[index]?.text.toString()
+        var id = (activity as MainActivity).userData.uid
         var name = backgroundModel.nameID[index]
-        var content = backgroundModel.contentID[index]
+        if (itemDB.checkItems(id, name)){
+            Toast.makeText(activity, "이미 보유 중입니다", Toast.LENGTH_SHORT).show()
+        } else{
+            var args = Bundle()
+            var str: String = "@drawable/bgimg" + (index + 1).toString()
+            var resId = resources.getIdentifier(str, "drawable", activity?.packageName)
+            var coin = coin[index]?.text.toString()
+            var content = backgroundModel.contentID[index]
 
-        args.putInt("image", resId)
-        args.putString("name", name)
-        args.putString("content", content)
-        args.putString("coin", coin)
+            args.putInt("image", resId)
+            args.putString("name", name)
+            args.putString("content", content)
+            args.putString("coin", coin)
+            args.putString("type", "background")
 
-        val dialog = ResourceCheckDialog()
-        dialog.arguments = args
-        dialog.show(parentFragmentManager,"BackgroundDialog")
+            val dialog = ResourceCheckDialog()
+            dialog.arguments = args
+            dialog.show(parentFragmentManager,"BackgroundDialog")
+        }
     }
 }
