@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Project_v1</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="badgeSpinner_Array">
+        <item>최신순</item>
+        <item>이름순</item>
+    </string-array>
+    <string name="score_0">점수 : 0</string>
+    <string name="time_10">시간 : 10</string>
+    <string name="fruit">tanghuru</string>
+    <string name="yes">YES</string>
+    <string name="game_name">탕후루를 잡아라!</string>
+    <string name="no">NO</string>
+    <string name="time">Time : "</string>
+    <string name="time_up">시간이 종료됐어요!!!</string>
+</resources>
